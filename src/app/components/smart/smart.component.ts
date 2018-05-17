@@ -5,7 +5,7 @@ import { Company } from '@shared/_interfaces/company';
 import { Item } from '@shared/_interfaces/item';
 
 import { from } from 'rxjs/observable/from';
-import { tap, pluck, map, flatMap, filter, concatMap, toArray } from 'rxjs/operators';
+import { pluck, map, filter, concatMap, toArray } from 'rxjs/operators';
 
 @Component({
   selector: 'app-testique-smart',
