@@ -3,8 +3,8 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 
-import { CoreModule } from '@core/core.module';
 import { TestiqueModule } from './components/testique.module';
+import { CoreModule } from './core/core.module';
 
 
 @NgModule({

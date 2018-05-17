@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
-import { CompanyService } from '@core/_services/company.service';
-import { Company } from '@shared/_interfaces/company';
-import { Item } from '@shared/_interfaces/item';
-
 import { from } from 'rxjs/observable/from';
 import { pluck, map, filter, concatMap, toArray } from 'rxjs/operators';
+import { CompanyService } from '../../core/_services/company.service';
+import { Company } from '../../shared/_interfaces/company';
+import { Item } from '../../shared/_interfaces/item';
 
 @Component({
   selector: 'app-testique-smart',

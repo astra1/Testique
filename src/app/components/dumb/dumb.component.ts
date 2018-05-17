@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output, ChangeDetectionStrategy, OnChanges, SimpleChanges } from '@angular/core';
-import { Item } from '@shared/_interfaces/item';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { Item } from '../../shared/_interfaces/item';
 
 @Component({
   selector: 'app-testique-dumb',

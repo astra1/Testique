@@ -1,7 +1,6 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { CompanyService } from '@core/_services/company.service';
+import { CompanyService } from './_services/company.service';
 
 @NgModule({
   imports: [
