@@ -1,0 +1,68 @@
+<form [formGroup]="chartForm">
+    <div class="container">
+
+        <mat-card>
+
+            <mat-card-header>
+                <div fxLayout="row"
+                     fxLayoutAlign="space-around center"
+                     fxLayoutGap="10px">
+
+                    <mat-select fxFlex="50"
+                                placeholder="Все категории"
+                                formControlName="category">
+                        <mat-option>
+                            Все категории
+                        </mat-option>
+                        <mat-option *ngFor="let cat of categories"
+                                    [value]="cat">
+                            {{cat}}
+                        </mat-option>
+                    </mat-select>
+
+                    <mat-select fxFlex="50"
+                                placeholder="Все вхождения"
+                                formControlName="occurrence">
+                        <mat-option>
+                            Все вхождения
+                        </mat-option>
+                        <mat-option *ngFor="let cp of items"
+                                    [value]="cp.id">
+                            {{cp.name}}
+                        </mat-option>
+                    </mat-select>
+                </div>
+            </mat-card-header>
+
+            <mat-card-content class="chart-container">
+                <ngx-charts-line-chart [view]="view"
+                                       [scheme]="scheme"
+                                       [yAxis]="true"
+                                       [xAxis]="true"
+                                       [results]="results">
+
+                </ngx-charts-line-chart>
+            </mat-card-content>
+
+            <mat-card-actions>
+
+                <div fxLayout="row"
+                     fxLayoutAlign="space-between center"
+                     fxLayoutGap="5px">
+
+                    <div fxFlex="25">Month: {{month}}</div>
+
+                    <button fxFlex="50"
+                            mat-button
+                            (click)="onSelectClick()"
+                            [disabled]="!chartForm.get('occurrence').value">Выбрать</button>
+
+                    <div fxFlex="25"
+                         style="text-align: right">Total: {{total}}</div>
+
+                </div>
+            </mat-card-actions>
+
+        </mat-card>
+    </div>
+</form>

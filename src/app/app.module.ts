@@ -1,8 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-
 import { AppComponent } from './app.component';
+
+import { CoreModule } from '@core/core.module';
+import { TestiqueModule } from './components/testique.module';
 
 
 @NgModule({
@@ -10,7 +12,9 @@ import { AppComponent } from './app.component';
     AppComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    CoreModule,
+    TestiqueModule
   ],
   providers: [],
   bootstrap: [AppComponent]
