@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 
 import { TestiqueModule } from './components/testique.module';
 import { CoreModule } from './core/core.module';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 
 @NgModule({
@@ -13,6 +14,7 @@ import { CoreModule } from './core/core.module';
   ],
   imports: [
     BrowserModule,
+    FlexLayoutModule,
     CoreModule,
     TestiqueModule
   ],

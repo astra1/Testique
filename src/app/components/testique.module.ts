@@ -17,7 +17,6 @@ import { DumbComponent } from './dumb/dumb.component';
     CommonModule,
     BrowserModule,
     BrowserAnimationsModule,
-    FlexLayoutModule,
     ReactiveFormsModule,
     // Material
     MatButtonModule,
