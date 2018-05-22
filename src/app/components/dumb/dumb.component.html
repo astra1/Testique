@@ -5,6 +5,7 @@
 
             <mat-card-header>
                 <div fxLayout="row"
+                     fxLayout.xs="column"
                      fxLayoutAlign="space-around center"
                      fxLayoutGap="10px">
 
@@ -34,13 +35,13 @@
                 </div>
             </mat-card-header>
 
-            <mat-card-content class="chart-container">
-                <ngx-charts-line-chart [view]="view"
+            <mat-card-content class="chart-container"
+                              #graphWrapper>
+                <ngx-charts-line-chart [view]="getView()"
                                        [scheme]="scheme"
                                        [yAxis]="true"
                                        [xAxis]="true"
                                        [results]="results">
-
                 </ngx-charts-line-chart>
             </mat-card-content>
 

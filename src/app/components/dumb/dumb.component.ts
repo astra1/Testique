@@ -1,6 +1,15 @@
-import { Component, OnInit, Input, EventEmitter, Output, ChangeDetectionStrategy, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  OnInit, Input, EventEmitter, Output, ChangeDetectionStrategy,
+  OnChanges, SimpleChanges, ElementRef, ViewChild, NgZone
+} from '@angular/core';
+
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { Item } from '../../shared/_interfaces/item';
+
+import { Subject } from 'rxjs/Subject';
+import { fromEvent } from 'rxjs/observable/fromEvent';
+import { distinctUntilChanged, debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-testique-dumb',
@@ -12,6 +21,9 @@ export class DumbComponent implements OnInit, OnChanges {
 
   @Input() items: Item[] = [];
   @Output() onItemSelected: EventEmitter<Item> = new EventEmitter<Item>();
+  @ViewChild('graphWrapper') graphWrapper: ElementRef;
+
+  private changeSize$: Subject<Event> = new Subject();
 
   chartForm: FormGroup;
 
@@ -20,21 +32,27 @@ export class DumbComponent implements OnInit, OnChanges {
   categories: any[] = [];
   occurrencies: any[] = [];
 
-  view = [400, 300];
+  chartWidth = 270;
+  chartHeight = 300;
+
   scheme = 'vivid';
 
   results: any[] = [];
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private zone: NgZone, private fb: FormBuilder) { }
 
   ngOnInit() {
     this.buildForm();
+
+    this.fixGraphPosition();
 
     this.chartForm.get('category').valueChanges
       .subscribe(val => {
         const filteredItems = val ? this.items.filter(i => i.category === val) : this.items;
         this.refreshDumb(filteredItems);
       });
+
+    this.onResize(null);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -97,5 +115,32 @@ export class DumbComponent implements OnInit, OnChanges {
       category: new FormControl(''),
       occurrence: new FormControl('')
     });
+  }
+
+  fixGraphPosition() {
+    this.zone.runOutsideAngular(() => {
+      fromEvent(window, 'resize')
+        .pipe(
+          debounceTime(150),
+          distinctUntilChanged(),
+      ).subscribe((e: Event) => {
+        this.zone.run(() => this.changeSize$.next(e));
+      });
+    });
+
+
+    this.changeSize$.subscribe((e: Event) => {
+      this.onResize(e);
+    });
+  }
+
+  onResize(event) {
+    if (this.graphWrapper && this.graphWrapper.nativeElement) {
+      this.chartWidth = this.graphWrapper.nativeElement.offsetWidth;
+    }
+  }
+
+  getView() {
+    return [this.chartWidth, this.chartHeight];
   }
 }
